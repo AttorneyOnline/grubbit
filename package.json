@@ -1,0 +1,26 @@
+{
+  "name": "grubbit",
+  "version": "0.1.0",
+  "description": "Asset grabber",
+  "main": "asset.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "oldmud0",
+  "license": "ISC",
+  "devDependencies": {
+    "fetch-mock": "^8.3.1",
+    "jasmine": "^3.5.0",
+    "karma": "^4.4.1",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-jasmine": "^3.0.1",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^4.0.2"
+  },
+  "dependencies": {
+    "dexie": "^2.0.4",
+    "jszip": "^3.2.2",
+    "mime-types": "^2.1.26",
+    "webpack": "^4.41.5"
+  }
+}
