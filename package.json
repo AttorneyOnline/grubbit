@@ -4,7 +4,7 @@
   "description": "Asset grabber",
   "main": "asset.js",
   "scripts": {
-    "test": "jest"
+    "test": "karma start"
   },
   "author": "oldmud0",
   "license": "ISC",

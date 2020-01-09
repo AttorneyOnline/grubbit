@@ -22,7 +22,10 @@ describe('environment', () => {
 describe('asset system', () => {
   let assets;
   beforeAll(async () => {
-    assets = new AssetDB('assets', [BASE, BROKEN]);
+    assets = new AssetDB('assets', {
+      repos: [BASE, BROKEN],
+      virtualBase: BASE
+    });
     assets.clearAll();
   });
 
@@ -31,10 +34,16 @@ describe('asset system', () => {
     expect(res.type).toBe('image/gif');
   });
 
-  it('downloads an asset', async () => {
+  it('downloads an asset with hashes', async () => {
     const pkg = '3e12c59c966cf442008eb43053183f15d3480499';
     const file = 'd3e61a0597ff455ce63299993882318073371f81';
     const res = await assets.getAsset(`@${pkg}/${file}`, true);
+    expect(res.type).toBe('image/gif');
+  });
+
+  it('downloads an asset with virtual base', async () => {
+    const file = 'banana.gif';
+    const res = await assets.getAsset(file, true);
     expect(res.type).toBe('image/gif');
   });
 });
