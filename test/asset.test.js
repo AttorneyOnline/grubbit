@@ -3,13 +3,23 @@ import { AssetDB } from '../lib/asset';
 const webFetch = window.fetch;
 import fetchMock from 'fetch-mock';
 
-const BASE = 'https://mock-assets.website';
+const REPO = 'https://mock-assets.website';
+const BASE = 'https://legacy-assets.website';
 const BROKEN = 'https://broken.website';
-fetchMock.mock(`begin:${BASE}`,
-  async (url, options) => {
-    const resource = url.substring(BASE.length + 1);
-    return await webFetch(`base/test/fixtures/${resource}`, options);
-  })
+
+function mockFixture(urlPrefix, fixtureDir) {
+  return async (url, options) => {
+    const resource = url.substring(urlPrefix.length + 1);
+    return await webFetch(
+      `base/test/fixtures/${fixtureDir}/${resource}`,
+      options
+    );
+  };
+}
+
+fetchMock
+  .mock(`begin:${REPO}`, mockFixture(REPO, 'pkgs'))
+  .mock(`begin:${BASE}`, mockFixture(BASE, 'base'))
   .mock(`begin:${BROKEN}`, { status: 404 });
 
 describe('environment', () => {
@@ -23,8 +33,8 @@ describe('asset system', () => {
   let assets;
   beforeAll(async () => {
     assets = new AssetDB('assets', {
-      repos: [BASE, BROKEN],
-      virtualBase: BASE
+      repos: [REPO, BROKEN],
+      virtualBase: [BROKEN, BASE]
     }); 
     assets.clearAll();
   });
