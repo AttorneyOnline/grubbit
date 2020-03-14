@@ -17,8 +17,8 @@ contain the same file.
 This is a library intended to be used in webAO as a drop-in replacement for raw
 `fetch`. Fetching on-demand presents sprites about 50-200 ms late, and while
 prefetching might solve the problem in the short term, the longer-term problem
-is that AO doesn't have a decent asset system. This is the solution to that
-longer-term problem.
+is that AO doesn't have a decent asset system. This is the solution to both the
+short-term and that longer-term problem.
 
 In order for this to work, however, clients will need to have a hint of what the
 hash of an emote or asset being presented is rather than its name. This will
